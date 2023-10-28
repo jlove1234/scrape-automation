@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: r-lib/actions/setup-r@v2  # Use a specific release or tag here
       with:
-        r-version: 4.1
+        r-version: '4.1'
 
     # Set-up R
     - name: Install packages
@@ -25,13 +25,31 @@ jobs:
         R -e 'install.packages("data.table")'
         R -e 'install.packages("dplyr")'
         R -e 'install.packages("tidyr")'
+        remotes::install_github("rstudio/renv")
+      shell: Rscript {0}
       
     - name: Display R library paths
       run: R -e 'library()'
 
+    - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
+      with:
+        path: ~/.local/share/renv
+        key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-renv-
+
+    - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
+      run: renv::restore()
+      shell: Rscript {0}        
+            
+
+    - name: Generate data # Run the script
+      run: source("/workspaces/scrape-automation/scraper.r")
+      shell: Rscript {0}
+
     # Run R script
-    - name: Scrape
-      run: R_LIBS_USER=/home/runner/work/_temp/Library Rscript scraper.r
+   # - name: Scrape
+     # run: R_LIBS_USER=/home/runner/work/_temp/Library Rscript scraper.r
       
  # Add new files in data folder, commit along with other modified files, push
     - name: Commit files
