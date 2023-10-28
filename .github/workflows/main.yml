@@ -21,8 +21,14 @@ jobs:
     # Set-up R
     - name: Install packages
       run: |
-        R -e 'install.packages("tidyverse")'
+        R -e 'install.packages("rvest")'
         R -e 'install.packages("data.table")'
+        R -e 'install.packages("dplyr")'
+        R -e 'install.packages("tidyr")'
+        R -e 'show.packages(all.available = TRUE)'
+    
+    - name: Display R library paths
+      run: R -e 'library()'
 
     # Run R script
     - name: Scrape
