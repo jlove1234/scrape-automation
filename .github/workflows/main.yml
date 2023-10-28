@@ -37,10 +37,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-renv-
 
-    - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
+    - name: Generate renv.lock
+      run: Rscript generate_lock.r
+      shell: Rscript {0}
+            
+    - name: Install dependencies # Install the dependencies e.g., Dplyr, tidyverse, etc.
       run: renv::restore()
-      shell: Rscript {0}   
-      
+      shell: Rscript {0}
+            
     - name: Setup renv
       run: R -e 'renv::init()'
             
