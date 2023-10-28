@@ -25,8 +25,7 @@ jobs:
         R -e 'install.packages("data.table")'
         R -e 'install.packages("dplyr")'
         R -e 'install.packages("tidyr")'
-        R -e 'show.packages(all.available = TRUE)'
-    
+      
     - name: Display R library paths
       run: R -e 'library()'
 
