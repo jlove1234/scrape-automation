@@ -25,7 +25,6 @@ jobs:
         R -e 'install.packages("data.table")'
         R -e 'install.packages("dplyr")'
         R -e 'install.packages("tidyr")'
-        remotes::install_github("rstudio/renv")
       shell: Rscript {0}
       
     - name: Display R library paths
@@ -40,12 +39,18 @@ jobs:
 
     - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
       run: renv::restore()
-      shell: Rscript {0}        
+      shell: Rscript {0}   
+      
+    - name: Setup renv
+      run: R -e 'renv::init()'
             
 
     - name: Generate data # Run the script
       run: source("/workspaces/scrape-automation/scraper.r")
       shell: Rscript {0}
+
+    - name: Install dependencies
+      run: R -e 'renv::restore()'
 
     # Run R script
    # - name: Scrape
