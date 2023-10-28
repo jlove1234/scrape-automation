@@ -1,7 +1,5 @@
 
-library(rvest) 
-library(tidyr)
-library(dplyr)
+library(tidyverse) 
 library(data.table)
 
 
