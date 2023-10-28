@@ -31,8 +31,7 @@ jobs:
 
     # Run R script
     - name: Scrape
-      run: |
-        R_LIBS_USER=/home/runner/work/_temp/Library Rscript scraper.r
+      run: R_LIBS_USER=/home/runner/work/_temp/Library Rscript scraper.r
       
  # Add new files in data folder, commit along with other modified files, push
     - name: Commit files
