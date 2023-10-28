@@ -3,7 +3,8 @@ name: sitemap_scraping
 
 # Controls when the action will run.
 on:
-
+  push:
+    branches: main
 
 jobs: 
   autoscrape:
