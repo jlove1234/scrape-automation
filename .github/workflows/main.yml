@@ -20,11 +20,14 @@ jobs:
     # Set-up R
     - name: Install packages
       run: |
-        R -e 'install.packages("tidyverse")'
+        R -e 'install.packages("tidyr")'
         R -e 'install.packages("rvest")'
+        R -e 'install.packages("dplyr")'
+        R -e 'install.packages("data.table")'
+
     # Run R script
     - name: Scrape
-      run: Rscript sitemap_scraping.R
+      run: Rscript scraper.R
       
  # Add new files in data folder, commit along with other modified files, push
     - name: Commit files
